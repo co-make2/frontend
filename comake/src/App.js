@@ -1,8 +1,14 @@
+
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import CommentForm from "./CommentForm";
 import * as yup from "yup";
 import axios from "axios";
+import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
+
+//components
+import {Login} from "./components/LoginPage";
+import {Home} from "./components/HomePage";
 
 const initialForm = {
   title: "",
@@ -130,6 +136,7 @@ function App() {
   };
 
   return (
+    <Router>
     <div className="App">
       <CommentForm
         inputChange={Changing}
@@ -137,7 +144,12 @@ function App() {
         values={form}
         comment={comment}
       />
+    <Switch>
+      <Route path="/" component={Login}/>
+      <Route path="/home" component={Home}/>
+     </Switch>
     </div>
+    </Router>
   );
 }
 
