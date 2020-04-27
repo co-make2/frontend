@@ -1,8 +1,14 @@
+
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import PostForm from "./PostForm";
 import * as yup from "yup";
 import axios from "axios";
+import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
+
+//components
+import {Login} from "./components/LoginPage";
+import {Home} from "./components/HomePage";
 
 const initialForm = {
   title: "",
@@ -127,6 +133,7 @@ function App() {
   };
 
   return (
+    <Router>
     <div className="App">
       <PostForm
         inputChange={Changing}
@@ -135,7 +142,12 @@ function App() {
         comment={comment}
         errors={errors}
       />
+    <Switch>
+      <Route path="/" component={Login}/>
+      <Route path="/home" component={Home}/>
+     </Switch>
     </div>
+    </Router>
   );
 }
 
