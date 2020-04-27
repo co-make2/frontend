@@ -8,6 +8,7 @@ export const Login = () => {
     })
 
     const inputHandler = (event) => {
+        event.preventDefault()
         setCredentials({
             ...credentials,
             [event.target.name]: event.target.value
