@@ -1,10 +1,10 @@
 import React from "react";
 
-export const Home = () => {
+export const Posts = () => {
 
     return (
         <div>
-            <h1>Home</h1>
+            <h1>Posts go here</h1>
         </div>
     )
 }
