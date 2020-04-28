@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-export const Login = () => {
+export const Login = (props) => {
     const [credentials, setCredentials] = useState({
-        email: '',
+        // email: '',
         username: '',
         password: ''
     })
@@ -15,18 +16,26 @@ export const Login = () => {
         })
     }
 
+    const login = (event) => {
+        axiosWithAuth().post('https://comakedatabase.herokuapp.com/api/users/login', credentials)
+        .then(response => {
+            localStorage.setItem('token', JSON.stringify(response.data.payload));
+            props.history.push('/posts')
+        })
+    }
+
     return (
         <div>
             <h1>Welcome to Comake</h1>
             <h3>Please sign in below, and start reaching out!</h3>
-            <form>
-                <input 
+            <form onSubmit={login}>
+                {/* <input 
                     type="email"
                     placeholder="Email:"
                     name="email"
                     value={credentials.email}
                     onChange={inputHandler}
-                /><br/>
+                /><br/> */}
                 <input 
                     type="text"
                     placeholder="Username:"
