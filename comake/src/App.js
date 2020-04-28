@@ -1,14 +1,13 @@
-
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import PostForm from "./PostForm";
 import * as yup from "yup";
 import axios from "axios";
-import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 //components
-import {Login} from "./components/LoginPage";
-import {Home} from "./components/HomePage";
+import { Login } from "./components/LoginPage";
+import { Home } from "./components/HomePage";
 
 const initialForm = {
   title: "",
@@ -25,14 +24,9 @@ const initialErrorForm = {
 };
 //form validation
 const formSchema = yup.object().shape({
-  title: yup.string().required("Must insert a title!"),
+  title: yup.string().required("Must have a title"),
   text: yup.string().required("Must insert a comment!"),
-  zip: yup
-    .number()
-    .typeError("zip must be a number")
-    .positive("zip must be greater than zero")
-    .required("zip is required")
-    .max(5),
+  zip: yup.string().required("must enter zip"),
   category: yup.string().required("Please select a category"),
 });
 
@@ -44,14 +38,14 @@ function App() {
   //for erros
   const [errors, setErrors] = useState(initialErrorForm);
   //for state of button
-  // const [formDisabled, setFormDisabled] = useState(true);
+  const [formDisabled, setFormDisabled] = useState(true);
 
-  // //making form disabled untill all requirments are done
-  // useEffect(() => {
-  //   formSchema.isValid(form).then((valid) => {
-  //     setFormDisabled(!valid);
-  //   });
-  // }, [form]);
+  //making form disabled untill all requirments are done
+  useEffect(() => {
+    formSchema.isValid(form).then((valid) => {
+      setFormDisabled(!valid);
+    });
+  }, [form]);
 
   //onChange Handeler
   const Changing = (event) => {
@@ -60,7 +54,8 @@ function App() {
 
     yup
       .reach(formSchema, name)
-      .validate((value) => {
+      .validate(value)
+      .then((valid) => {
         setErrors({
           ...errors,
           [name]: "",
@@ -82,10 +77,6 @@ function App() {
 
   //dummy axios url
   const url = "https://reqres.in/api/users";
-
-  // axios.get(url).then((res) => {
-  //   console.log(res);
-  // });
 
   //Making a function that goes to the axios and sets the wanted data to Comment
   const getComment = () => {
@@ -134,19 +125,20 @@ function App() {
 
   return (
     <Router>
-    <div className="App">
-      <PostForm
-        inputChange={Changing}
-        Submiting={Submiting}
-        values={form}
-        comment={comment}
-        errors={errors}
-      />
-    <Switch>
-      <Route path="/" component={Login}/>
-      <Route path="/home" component={Home}/>
-     </Switch>
-    </div>
+      <div className="App">
+        <PostForm
+          inputChange={Changing}
+          Submiting={Submiting}
+          values={form}
+          comment={comment}
+          errors={errors}
+          disabled={formDisabled}
+        />
+        <Switch>
+          <Route path="/" component={Login} />
+          <Route path="/home" component={Home} />
+        </Switch>
+      </div>
     </Router>
   );
 }
