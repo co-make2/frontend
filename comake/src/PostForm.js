@@ -19,6 +19,7 @@ function PostForm({
           onChange={inputChange}
           value={values.name}
         />
+        <p> {errors.title} </p>
       </label>
 
       <label>
@@ -50,7 +51,10 @@ function PostForm({
         <p> {errors.category} </p>
       </label>
       <label>
-        <button type="submit"> Submit Comment </button>
+        <button type="submit" disabled={disabled}>
+          {" "}
+          Submit Comment{" "}
+        </button>
       </label>
       <div>
         {" "}
@@ -67,14 +71,6 @@ function PostForm({
       </div>
     </form>
   );
-}
-{
-  /* <div>
-  <h2>{item.title} </h2>
-  <h3>{item.zip}</h3>
-  <h3>{item.category}</h3>
-  <h3>{item.text}</h3>
-</div>; */
 }
 
 export default PostForm;
