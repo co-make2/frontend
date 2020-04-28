@@ -1,6 +1,7 @@
 import React from "react";
+import PostCard from "./PostCard";
 
-function CommentForm({
+function PostForm({
   values,
   inputChange,
   Submiting,
@@ -27,15 +28,17 @@ function CommentForm({
           onChange={inputChange}
           value={values.text}
         />
+        <p> {errors.text} </p>
       </label>
       <label>
         <input
           name="zip"
-          type="number"
+          type="text"
           placeholder="Zip Code"
           onChange={inputChange}
           value={values.zip}
         />
+        <p> {errors.zip} </p>
       </label>
       <label>
         <select name="category" onChange={inputChange} value={values.category}>
@@ -44,6 +47,7 @@ function CommentForm({
           <option value="dummyData3"> dummyData3 </option>
           <option value="dummyData4"> dummyData4 </option>
         </select>
+        <p> {errors.category} </p>
       </label>
       <label>
         <button type="submit"> Submit Comment </button>
@@ -52,18 +56,25 @@ function CommentForm({
         {" "}
         {comment.map((item) => {
           return (
-            <div>
-              <h2>{item.first_name} </h2>
-              <h2>{item.title} </h2>
-              <h3>{item.zip}</h3>
-              <h3>{item.category}</h3>
-              <h3>{item.text}</h3>
-            </div>
+            <PostCard
+              title={item.title}
+              zip={item.zip}
+              category={item.category}
+              text={item.text}
+            />
           );
         })}
       </div>
     </form>
   );
 }
+{
+  /* <div>
+  <h2>{item.title} </h2>
+  <h3>{item.zip}</h3>
+  <h3>{item.category}</h3>
+  <h3>{item.text}</h3>
+</div>; */
+}
 
-export default CommentForm;
+export default PostForm;

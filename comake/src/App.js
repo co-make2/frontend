@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import CommentForm from "./CommentForm";
+import PostForm from "./PostForm";
 import * as yup from "yup";
 import axios from "axios";
 import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
@@ -25,9 +25,14 @@ const initialErrorForm = {
 };
 //form validation
 const formSchema = yup.object().shape({
-  title: yup.string().required("Must insert a name!"),
+  title: yup.string().required("Must insert a title!"),
   text: yup.string().required("Must insert a comment!"),
-  zip: yup.number("Must be a number").required("Zip Code is required").max(5),
+  zip: yup
+    .number()
+    .typeError("zip must be a number")
+    .positive("zip must be greater than zero")
+    .required("zip is required")
+    .max(5),
   category: yup.string().required("Please select a category"),
 });
 
@@ -35,15 +40,7 @@ function App() {
   //setting state for form
   const [form, setForm] = useState(initialForm);
   //for comments that will be added
-  const [comment, setComment] = useState([
-    {
-      first_name: "asda",
-      title: "alsdkasl",
-      zip: "38938",
-      category: "asakdj",
-      text: "sldkfsldk",
-    },
-  ]);
+  const [comment, setComment] = useState([]);
   //for erros
   const [errors, setErrors] = useState(initialErrorForm);
   //for state of button
@@ -138,11 +135,12 @@ function App() {
   return (
     <Router>
     <div className="App">
-      <CommentForm
+      <PostForm
         inputChange={Changing}
         Submiting={Submiting}
         values={form}
         comment={comment}
+        errors={errors}
       />
     <Switch>
       <Route path="/" component={Login}/>
