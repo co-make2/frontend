@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import PostForm from "./PostForm";
-import Post from "./Post";
+import PostFile from "./PostFile";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 //components
@@ -12,7 +11,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Post />
+        <PostFile />
         <Switch>
           <Route path="/" component={Login} />
           <Route path="/home" component={Home} />

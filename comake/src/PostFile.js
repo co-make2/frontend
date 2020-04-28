@@ -29,7 +29,7 @@ const formSchema = yup.object().shape({
   category: yup.string().required("Please select a category"),
 });
 
-function Post() {
+function PostFile() {
   //setting state for form
   const [form, setForm] = useState(initialForm);
   //for comments that will be added
@@ -133,4 +133,4 @@ function Post() {
   );
 }
 
-export default Post;
+export default PostFile;
