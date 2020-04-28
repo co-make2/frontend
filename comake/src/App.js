@@ -23,7 +23,9 @@ function App() {
         <header>
           <nav>
             <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
             <Link to="/posts">Local Issues</Link>
+            
           </nav>
         </header>
         <PostForm
@@ -36,7 +38,7 @@ function App() {
         />
           <Route path="/register" component={Register}/>
           <Route path="/login" component={Login} />
-          <PrivateRoute path="/posts" component={Posts} />
+          <PrivateRoute exact path="/posts" component={Posts} />
 
       </div>
     </Router>

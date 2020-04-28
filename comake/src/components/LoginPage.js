@@ -17,9 +17,10 @@ export const Login = (props) => {
     }
 
     const login = (event) => {
+        event.preventDefault()
         axiosWithAuth().post('https://comakedatabase.herokuapp.com/api/users/login', credentials)
         .then(response => {
-            localStorage.setItem('token', JSON.stringify(response.data.payload));
+            localStorage.setItem('token', JSON.stringify(response.data.token));
             props.history.push('/posts')
         })
     }
