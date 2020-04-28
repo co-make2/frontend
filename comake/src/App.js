@@ -14,7 +14,6 @@ function App() {
         <PostFile />
         <Switch>
           <Route path="/" component={Login} />
-          <Route path="/home" component={Home} />
         </Switch>
       </div>
     </Router>

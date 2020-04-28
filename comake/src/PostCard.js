@@ -1,6 +1,6 @@
 import React from "react";
 
-function PostCard(props) {
+export default function PostCard(props) {
   return (
     <div>
       <div>
@@ -13,4 +13,13 @@ function PostCard(props) {
   );
 }
 
-export default PostCard;
+{
+  /* <div>
+  <div>
+    <h1>{props.title} </h1>
+  </div>
+  <h3> Zip Code: {props.zip} </h3>
+  <h3>Category: {props.category}</h3>
+  <div> Issue : {props.text} </div>
+</div>; */
+}
