@@ -17,16 +17,20 @@ const initialForm = {
 };
 
 const initialErrorForm = {
-  title: "",
-  text: "",
-  zip: "",
-  category: "",
+  title: "Example Title",
+  text: "This is where the issue would display",
+  zip: "12345",
+  category: "Saftey",
 };
 //form validation
 const formSchema = yup.object().shape({
   title: yup.string().required("Must have a title"),
   text: yup.string().required("Must insert a comment!"),
-  zip: yup.string().required("must enter zip"),
+  zip: yup
+    .string()
+    .required("Must enter zip")
+    .max(5, "Zip code can not exceed 5 digits")
+    .min(5, "Must be 5 digits long"),
   category: yup.string().required("Please select a category"),
 });
 
