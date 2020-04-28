@@ -17,26 +17,18 @@ function App() {
         <PostFile />
         <Switch>
           <Route path="/" component={Login} />
-          <Route path="/home" component={Home} />
         </Switch>
 
         <header>
           <nav>
             <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
             <Link to="/posts">Local Issues</Link>
           </nav>
         </header>
-        <PostForm
-          inputChange={Changing}
-          Submiting={Submiting}
-          values={form}
-          comment={comment}
-          errors={errors}
-          disabled={formDisabled}
-        />
           <Route path="/register" component={Register}/>
           <Route path="/login" component={Login} />
-          <PrivateRoute path="/posts" component={Posts} />
+          <PrivateRoute exact path="/posts" component={Posts} />
 
       </div>
     </Router>
