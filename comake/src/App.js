@@ -7,7 +7,9 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 //components
 import { Login } from "./components/LoginPage";
-import { Home } from "./components/HomePage";
+import { Register } from "./components/RegisterPage";
+import { Posts } from "./components/PostsPage";
+import PrivateRoute from "./components/PrivateRoute";
 
 const initialForm = {
   title: "",
@@ -126,6 +128,12 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <header>
+          <nav>
+            <Link to="/login">Login</Link>
+            <Link to="/posts">Local Issues</Link>
+          </nav>
+        </header>
         <PostForm
           inputChange={Changing}
           Submiting={Submiting}
@@ -134,10 +142,9 @@ function App() {
           errors={errors}
           disabled={formDisabled}
         />
-        <Switch>
-          <Route path="/" component={Login} />
-          <Route path="/home" component={Home} />
-        </Switch>
+          <Route path="/register" component={Register}/>
+          <Route path="/login" component={Login} />
+          <PrivateRoute path="/posts" component={Posts} />
       </div>
     </Router>
   );
