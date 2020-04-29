@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+// import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { connect } from "react-redux";
+import {userLogin} from "../actions/LoginAction";
 
-export const Login = (props) => {
+const Login = (props) => {
+    // console.log(userLogin)
     const [credentials, setCredentials] = useState({
-        // email: '',
         username: '',
         password: ''
     })
@@ -16,27 +18,29 @@ export const Login = (props) => {
         })
     }
 
-    const login = (event) => {
-        event.preventDefault()
-        axiosWithAuth().post('https://comakedatabase.herokuapp.com/api/users/login', credentials)
-        .then(response => {
-            localStorage.setItem('token', JSON.stringify(response.data.token));
-            props.history.push('/posts')
-        })
-    }
+    // const login = (event) => {
+    //     event.preventDefault()
+    //     axiosWithAuth().post('https://comakedatabase.herokuapp.com/api/users/login', credentials)
+    //     .then(response => {
+    //         localStorage.setItem('token', JSON.stringify(response.data.token));
+            
+    //     })
+    // }
 
     return (
         <div>
             <h1>Welcome to Comake</h1>
             <h3>Please sign in below, and start reaching out!</h3>
-            <form onSubmit={login}>
-                {/* <input 
-                    type="email"
-                    placeholder="Email:"
-                    name="email"
-                    value={credentials.email}
-                    onChange={inputHandler}
-                /><br/> */}
+            <form onSubmit={(event) => {
+                event.preventDefault()
+                props.userLogin(credentials)
+                setCredentials({
+                    username: '',
+                    password: ''
+                })
+                props.history.push("/posts")
+            }}>
+            
                 <input 
                     type="text"
                     placeholder="Username:"
@@ -56,3 +60,5 @@ export const Login = (props) => {
         </div>
     )
 }
+
+export default connect(null, {userLogin})(Login)

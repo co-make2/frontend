@@ -4,7 +4,7 @@ import PostFile from "./PostFile";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 //components
-import { Login } from "./components/LoginPage";
+import Login from "./components/LoginPage";
 import { Register } from "./components/RegisterPage";
 import { Posts } from "./components/PostsPage";
 import PrivateRoute from "./components/PrivateRoute";
