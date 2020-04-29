@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 //components
-import { Login } from "./components/LoginPage";
+import Login from "./components/LoginPage";
 import { Register } from "./components/RegisterPage";
 import { Posts } from "./components/PostsPage";
 import PrivateRoute from "./components/PrivateRoute";
