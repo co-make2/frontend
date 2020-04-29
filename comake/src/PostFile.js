@@ -12,10 +12,10 @@ const initialForm = {
 };
 
 const initialErrorForm = {
-  title: "Example Title",
-  text: "This is where the issue would display",
-  zip: "12345",
-  category: "Saftey",
+  title: "",
+  text: "",
+  zip: "",
+  category: "",
 };
 //form validation
 const formSchema = yup.object().shape({
