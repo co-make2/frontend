@@ -3,37 +3,38 @@ import "./App.css";
 import PostForm from "./PostForm";
 import * as yup from "yup";
 import axios from "axios";
+import { axiosWithAuth } from "./utils/axiosWithAuth";
 
 const initialForm = {
-  title: "",
-  text: "",
-  zip: "",
-  category: "",
+  post_title: "",
+  post_text: "",
+  post_zip: "",
+  post_category: "",
 };
 
 const initialErrorForm = {
-  title: "",
-  text: "",
-  zip: "",
-  category: "",
+  post_title: "",
+  post_text: "",
+  post_zip: "",
+  post_category: "",
 };
 //form validation
 const formSchema = yup.object().shape({
-  title: yup.string().required("Must have a title"),
-  text: yup.string().required("Must insert a comment!"),
-  zip: yup
+  post_title: yup.string().required("Must have a title"),
+  post_text: yup.string().required("Must insert a comment!"),
+  post_zip: yup
     .string()
     .required("Must enter zip")
     .max(5, "Zip code can not exceed 5 digits")
     .min(5, "Must be 5 digits long"),
-  category: yup.string().required("Please select a category"),
+  post_category: yup.string().required("Please select a category"),
 });
 
 function PostFile() {
   //setting state for form
   const [form, setForm] = useState(initialForm);
   //for comments that will be added
-  const [comment, setComment] = useState([]);
+  const [post, setPost] = useState([]);
   //for erros
   const [errors, setErrors] = useState(initialErrorForm);
   //for state of button
@@ -75,31 +76,33 @@ function PostFile() {
   // setting up the axios post and submit handeler
 
   //dummy axios url
-  const url = "https://reqres.in/api/users";
+  const url = "https://comakedatabase.herokuapp.com/api/posts";
 
   //Making a function that goes to the axios and sets the wanted data to Comment
-  const getComment = () => {
-    axios
+  const getPost = () => {
+    axiosWithAuth()
       .get(url)
       .then((res) => {
-        console.log(res.data.data);
-        setComment([...comment, res.data.data]);
+        console.log(res.data);
+        setPost(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  // console.log(post);
   //making that funciton only run once when the page is updated
   useEffect(() => {
-    getComment();
+    getPost();
   }, []);
   // Adding a comment to the url and setting your array of comments to that
   //url PLUS adding the new data its getting
-  const postComment = (e) => {
-    axios
-      .post(url, form)
+  const postingPost = (event) => {
+    axiosWithAuth()
+      .post(url, event)
       .then((res) => {
-        setComment([...comment, res.data]);
+        console.log(res);
+        setPost([...post, res.data]);
       })
       .catch((err) => {
         console.log(err.message);
@@ -110,14 +113,15 @@ function PostFile() {
   const Submiting = (event) => {
     event.preventDefault();
 
-    const newComment = {
-      title: form.title,
-      text: form.text,
-      zip: form.zip,
-      category: form.category,
+    const newPost = {
+      user_id: "L76pkeUau",
+      title: form.post_title,
+      text: form.post_text,
+      zip: form.post_zip,
+      category_id: form.post_category,
     };
     //posting the comment to the api and rendering
-    postComment(newComment);
+    postingPost(newPost);
     //making it blank again
     setForm(initialForm);
   };
@@ -126,7 +130,7 @@ function PostFile() {
       inputChange={Changing}
       Submiting={Submiting}
       values={form}
-      comment={comment}
+      post={post}
       errors={errors}
       disabled={formDisabled}
     />

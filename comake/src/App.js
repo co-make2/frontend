@@ -28,7 +28,7 @@ function App() {
         </header>
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
-        <PrivateRoute exact path="/posts" component={Posts} />
+        <PrivateRoute exact path="/posts" component={PostFile} />
       </div>
     </Router>
   );

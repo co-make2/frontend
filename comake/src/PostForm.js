@@ -67,59 +67,56 @@ const InputZip = styled.input`
   margin: 0 auto;
 `;
 
-function PostForm({
-  values,
-  inputChange,
-  Submiting,
-  errors,
-  comment,
-  disabled,
-}) {
+function PostForm({ values, inputChange, Submiting, errors, post, disabled }) {
   return (
     <Form onSubmit={Submiting}>
       <label>
         <Form.Label>Category: </Form.Label>
-        <Select name="category" onChange={inputChange} value={values.category}>
+        <Select
+          name="post_category"
+          onChange={inputChange}
+          value={values.post_category}
+        >
           <Option> Select Category </Option>
-          <Option value="dummyData1"> dummyData1 </Option>
-          <Option value="dummyData2"> dummyData2 </Option>
-          <Option value="dummyData3"> dummyData3 </Option>
-          <Option value="dummyData4"> dummyData4 </Option>
+          <Option value="1"> dummyData1 </Option>
+          <Option value="2"> dummyData2 </Option>
+          <Option value="3"> dummyData3 </Option>
+          <Option value="4"> dummyData4 </Option>
         </Select>
         <p> {errors.category} </p>
       </label>
       <Form.Group>
         <Form.Label>Title</Form.Label>
         <InputTitle
-          name="title"
+          name="post_title"
           type="text"
           placeholder="Insert Title here!"
           onChange={inputChange}
-          value={values.name}
+          value={values.post_title}
         />
-        <p> {errors.title} </p>
+        <p> {errors.post_title} </p>
       </Form.Group>
       <Form.Group>
         <Form.Label>Concern</Form.Label>
         <InputTextArea
-          name="text"
+          name="post_text"
           placeholder="Enter your concern here!"
           onChange={inputChange}
-          value={values.text}
+          value={values.post_text}
         />
-        <p> {errors.text} </p>
+        <p> {errors.post_text} </p>
       </Form.Group>
 
       <Form.Group>
         <Form.Label>Zip Code</Form.Label>
         <InputZip
-          name="zip"
+          name="post_zip"
           type="text"
           placeholder="Zip Code"
           onChange={inputChange}
-          value={values.zip}
+          value={values.post_zip}
         />
-        <p> {errors.zip} </p>
+        <p> {errors.post_zip} </p>
       </Form.Group>
 
       <label>
@@ -130,13 +127,13 @@ function PostForm({
       </label>
       <div>
         {" "}
-        {comment.map((item) => {
+        {post.map((item) => {
           return (
             <PostCard
-              title={item.title}
-              zip={item.zip}
-              category={item.category}
-              text={item.text}
+              title={item.post_title}
+              zip={item.post_zip}
+              category={item.post_category}
+              text={item.post_text}
             />
           );
         })}

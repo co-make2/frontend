@@ -30,3 +30,18 @@ export default function PostCard(props) {
       <div> Issue : {props.text} </div>
     </div> */
 }
+
+{
+  /* <Card>
+<Card.Img variant="top" src="holder.js/100px160" />
+<Card.Body>
+  <Card.Title>{props.title}</Card.Title>
+  <Card.Text>{props.text}</Card.Text>
+</Card.Body>
+<Card.Footer>
+  <small className="text-muted">
+    {props.zip} | {props.category}{" "}
+  </small>
+</Card.Footer>
+</Card> */
+}
