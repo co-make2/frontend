@@ -8,12 +8,15 @@ import * as serviceWorker from './serviceWorker';
 import { createStore, applyMiddleware } from "redux";
 import {Provider} from "react-redux";
 import thunk from "redux-thunk";
+import {LoginReducer} from "./reducers/LoginReducer";
+
+const store = createStore(LoginReducer, applyMiddleware(thunk));
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 

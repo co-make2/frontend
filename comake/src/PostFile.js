@@ -3,6 +3,7 @@ import "./App.css";
 import PostForm from "./PostForm";
 import * as yup from "yup";
 import axios from "axios";
+import { connect } from "react-redux";
 
 const initialForm = {
   title: "",
@@ -29,7 +30,8 @@ const formSchema = yup.object().shape({
   category: yup.string().required("Please select a category"),
 });
 
-function PostFile() {
+function PostFile(props) {
+  console.log(props.banana)
   //setting state for form
   const [form, setForm] = useState(initialForm);
   //for comments that will be added
@@ -82,7 +84,7 @@ function PostFile() {
     axios
       .get(url)
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setComment([...comment, res.data.data]);
       })
       .catch((err) => {
@@ -133,4 +135,10 @@ function PostFile() {
   );
 }
 
-export default PostFile;
+const mapStateToProps = state => {
+  return {
+      banana: state.id
+  }
+}
+
+export default connect(mapStateToProps, {})(PostFile)
