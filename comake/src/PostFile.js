@@ -6,7 +6,6 @@ import axios from "axios";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
 import { connect } from "react-redux";
 
-
 const initialForm = {
   post_title: "",
   post_text: "",
@@ -33,7 +32,6 @@ const formSchema = yup.object().shape({
 });
 
 function PostFile(props) {
-  console.log(props.banana)
   //setting state for form
   const [form, setForm] = useState(initialForm);
   //for comments that will be added
@@ -86,7 +84,8 @@ function PostFile(props) {
     axiosWithAuth()
       .get(url)
       .then((res) => {
-        setPost(res.data)
+        console.log(res.data);
+        setPost(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -116,7 +115,7 @@ function PostFile(props) {
     event.preventDefault();
 
     const newPost = {
-      user_id: "L76pkeUau",
+      user_id: props.user_id,
       title: form.post_title,
       text: form.post_text,
       zip: form.post_zip,
@@ -139,10 +138,10 @@ function PostFile(props) {
   );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-      banana: state.id
-  }
-}
+    user_id: state.id,
+  };
+};
 
-export default connect(mapStateToProps, {})(PostFile)
+export default connect(mapStateToProps, {})(PostFile);

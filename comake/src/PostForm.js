@@ -128,8 +128,10 @@ function PostForm({ values, inputChange, Submiting, errors, post, disabled }) {
       <div>
         {" "}
         {post.map((item) => {
+          console.log(item);
           return (
             <PostCard
+              id={item.post_id}
               title={item.post_title}
               zip={item.post_zip}
               category={item.post_category}

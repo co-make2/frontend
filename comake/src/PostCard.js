@@ -1,10 +1,27 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  margin: 5% auto;
+`;
 
 export default function PostCard(props) {
+  console.log(props.title);
   return (
     <div>
-      <Card>
+      <Wrapper>
         <Card.Img variant="top" src="holder.js/100px160" />
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
@@ -12,10 +29,14 @@ export default function PostCard(props) {
         </Card.Body>
         <Card.Footer>
           <small className="text-muted">
-            {props.zip} | {props.category}{" "}
+            Zip: {props.zip} | Category: {props.category}{" "}
           </small>
         </Card.Footer>
-      </Card>
+        <Link to={`/posts/${props.id}`}>
+          {" "}
+          <Button>Edit Post</Button>{" "}
+        </Link>
+      </Wrapper>
     </div>
   );
 }

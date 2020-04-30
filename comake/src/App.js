@@ -9,12 +9,12 @@ import Login from "./components/LoginPage";
 import { Register } from "./components/RegisterPage";
 import { Posts } from "./components/PostsPage";
 import PrivateRoute from "./components/PrivateRoute";
+import PostCard from "./PostCard";
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <PostFile />
         <Switch>
           <Route path="/" component={Login} />
         </Switch>
@@ -28,6 +28,7 @@ function App() {
         </header>
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
+        <Route path="/posts/:id" component={PostCard} />
         <PrivateRoute exact path="/posts" component={PostFile} />
       </div>
     </Router>
