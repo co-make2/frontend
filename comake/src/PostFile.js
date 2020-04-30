@@ -126,6 +126,16 @@ function PostFile(props) {
     //making it blank again
     setForm(initialForm);
   };
+
+  function add(id) {
+    const vote = { vote: 1 };
+    axiosWithAuth()
+      .put(`https://comakedatabase.herokuapp.com/api/posts/${id}/vote`, vote)
+      .then((res) => {
+        props.history.go(0);
+      });
+  }
+  console.log(props);
   return (
     <PostForm
       inputChange={Changing}
@@ -134,6 +144,7 @@ function PostFile(props) {
       post={post}
       errors={errors}
       disabled={formDisabled}
+      add={add}
     />
   );
 }

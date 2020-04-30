@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { axiosWithAuth } from "./utils/axiosWithAuth";
 
 const Wrapper = styled.div`
   position: relative;
@@ -18,10 +19,13 @@ const Wrapper = styled.div`
 `;
 
 export default function PostCard(props) {
+  const [upVote, setupVote] = useState(props.upvotes);
+
   return (
     <div>
       <Wrapper>
         <Card.Img variant="top" src="holder.js/100px160" />
+        <p>Upvotes:{props.upvotes} </p>
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>{props.text}</Card.Text>
@@ -30,11 +34,8 @@ export default function PostCard(props) {
           <small className="text-muted">
             Zip: {props.zip} | Category: {props.category}{" "}
           </small>
+          <Button onClick={() => props.add(props.id)}>Upvote Post</Button>
         </Card.Footer>
-        <Link to={`/posts/${props.id}`}>
-          {" "}
-          <Button>Edit Post</Button>{" "}
-        </Link>
       </Wrapper>
     </div>
   );
