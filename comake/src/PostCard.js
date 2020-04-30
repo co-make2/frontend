@@ -1,7 +1,10 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
+import { connect } from "react-redux";
+import {editAction} from "./actions/EditAction"
+import { Link } from "react-router-dom";
 
-export default function PostCard(props) {
+ function PostCard(props) {
   return (
     <div>
       <Card>
@@ -45,3 +48,5 @@ export default function PostCard(props) {
 </Card.Footer>
 </Card> */
 }
+
+export default connect(null, {editAction})(PostCard)

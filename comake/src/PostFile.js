@@ -5,6 +5,7 @@ import * as yup from "yup";
 import axios from "axios";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
 import { connect } from "react-redux";
+// import {editAction} from "./actions/EditAction";
 
 
 const initialForm = {
@@ -86,6 +87,7 @@ function PostFile(props) {
     axiosWithAuth()
       .get(url)
       .then((res) => {
+        console.log(res.data)
         setPost(res.data)
       })
       .catch((err) => {
