@@ -98,25 +98,25 @@ function PostFile(props) {
   // setting up the axios post and submit handeler
 
   //dummy axios url
-  const url = "https://comakedatabase.herokuapp.com/api/posts";
+  // const url = "https://comakedatabase.herokuapp.com/api/posts";
 
   //Making a function that goes to the axios and sets the wanted data to Comment
-  const getPost = () => {
-    axiosWithAuth()
-      .get(url)
-      .then((res) => {
-        console.log(res.data)
-        setPost(res.data)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  // console.log(post);
-  //making that funciton only run once when the page is updated
-  useEffect(() => {
-    getPost();
-  }, []);
+  // const getPost = () => {
+  //   axiosWithAuth()
+  //     .get(url)
+  //     .then((res) => {
+  //       console.log(res.data)
+  //       setPost(res.data)
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+  // // console.log(post);
+  // //making that funciton only run once when the page is updated
+  // useEffect(() => {
+  //   getPost();
+  // }, []);
 
   // Adding a comment to the url and setting your array of comments to that
   //url PLUS adding the new data its getting

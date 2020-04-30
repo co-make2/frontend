@@ -4,10 +4,8 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
-
 import { connect } from "react-redux";
-import {editAction} from "./actions/EditAction"
-import { Link } from "react-router-dom";
+
 
 const Wrapper = styled.div`
   position: relative;
@@ -25,10 +23,6 @@ const Wrapper = styled.div`
 export default function PostCard(props) {
   const [upVote, setupVote] = useState(props.upvotes);
 
-
-
-
- function PostCard(props) {
 
   return (
     <div>
@@ -49,7 +43,7 @@ export default function PostCard(props) {
     </div>
   );
 }
-}
+
 
 {
   /* <div>
@@ -82,5 +76,4 @@ export default function PostCard(props) {
 //set those values to state
 //
 
-export default connect(null, {editAction})(PostCard)
 

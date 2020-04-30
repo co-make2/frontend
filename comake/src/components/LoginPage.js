@@ -39,8 +39,8 @@ const Login = (props) => {
                     username: '',
                     password: ''
                 })
-                // props.history.push("/posts")
-                // props.history.go(0)
+                props.history.push("/posts")
+                props.history.go(0)
             }}>
             
                 <Form.Control 

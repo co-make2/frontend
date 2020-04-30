@@ -124,6 +124,8 @@ const updateForm = (post) => {
   axiosWithAuth().put(`https://comakedatabase.herokuapp.com/api/posts/${id}`, newObj)
   .then(response => {
     console.log(response)
+    props.history.push("/posts")
+    props.history.go(0)
   })
 }
 
@@ -131,6 +133,7 @@ const deletePost = () => {
   axiosWithAuth().delete(`https://comakedatabase.herokuapp.com/api/posts/${id}`)
   .then(response => {
     props.history.push("/posts");
+    props.history.go(0)
   })
   
 }
