@@ -4,10 +4,9 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
-
 import { connect } from "react-redux";
 import {editAction} from "./actions/EditAction"
-import { Link } from "react-router-dom";
+
 
 const Wrapper = styled.div`
   position: relative;
