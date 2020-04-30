@@ -18,7 +18,6 @@ const Wrapper = styled.div`
 `;
 
 export default function PostCard(props) {
-  console.log(props.title);
   return (
     <div>
       <Wrapper>
@@ -66,3 +65,7 @@ export default function PostCard(props) {
 </Card.Footer>
 </Card> */
 }
+
+//make a useeffect that has a GET request to specific post id. post/:id
+//set those values to state
+//
