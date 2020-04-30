@@ -98,7 +98,7 @@ function PostFile(props) {
   // setting up the axios post and submit handeler
 
   //dummy axios url
-  const url = "https://comakedatabase.herokuapp.com/api/posts";
+  // const url = "https://comakedatabase.herokuapp.com/api/posts";
 
   //Making a function that goes to the axios and sets the wanted data to Comment
   const getPost = () => {
