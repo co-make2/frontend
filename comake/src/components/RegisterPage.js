@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import {userRegister} from "../actions/RegisterAction";
+import { connect } from "react-redux";
 
-export const Register = props => {
+const Register = props => {
     const [credentials, setCredentials] = useState({
-        username: '',
-        email: '',
-        password: '',
-        zip: ''
+        username: props.username,
+        email: props.email,
+        password: props.password,
+        zip: props.zip
     })
     
     useEffect(() => {
@@ -24,21 +26,25 @@ export const Register = props => {
         })
     }
 
-    const registerUser = event => {
-        event.preventDefault();
-        axios.post('https://comakedatabase.herokuapp.com/api/users/register', credentials)
-        .then(response => {
-            console.log(response)
-            localStorage.setItem('token', JSON.stringify(response.data.token));
-            props.history.push("/posts")
-        })
-    }
+    // const registerUser = event => {
+    //     event.preventDefault();
+    //     axios.post('https://comakedatabase.herokuapp.com/api/users/register', credentials)
+    //     .then(response => {
+    //         console.log(response)
+    //         localStorage.setItem('token', JSON.stringify(response.data.token));
+    //         props.history.push("/posts")
+    //     })
+    // }
 
     return (
         <div>
             <h1>Please Enter the following information</h1>
             <h3>So that you can begin to reach out to your community!</h3>
-            <form onSubmit={registerUser}>
+            <form onSubmit={(event) => {
+                event.preventDefault();
+                props.userRegister(credentials)
+                props.history.push("/posts")
+            }}>
                 <input
                     type="username"
                     name="username"
@@ -75,3 +81,14 @@ export const Register = props => {
         </div>
     )
 }
+
+const mapStateToProps = state => {
+    return {
+        username: state.username,
+        email: state.email,
+        password: state.password,
+        zip: state.zip
+    }
+}
+
+export default connect(mapStateToProps, {userRegister})(Register)
