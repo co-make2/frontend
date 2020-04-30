@@ -19,7 +19,7 @@ const EditCard = (props) => {
       });
   }, []);
 
-  return <PostForm />;
+  return null;
 };
 
 export default EditCard;

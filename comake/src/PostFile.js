@@ -40,6 +40,26 @@ function PostFile(props) {
   const [errors, setErrors] = useState(initialErrorForm);
   //for state of button
   const [formDisabled, setFormDisabled] = useState(true);
+  //dummy axios url
+  const url = "https://comakedatabase.herokuapp.com/api/posts";
+
+  //Making a function that goes to the axios and sets the wanted data to Comment
+  const getPost = () => {
+    axiosWithAuth()
+      .get(url)
+      .then((res) => {
+        localStorage.setItem("post", JSON.stringify(res.data));
+        setPost(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  // console.log(post);
+  //making that funciton only run once when the page is updated
+  useEffect(() => {
+    getPost();
+  }, []);
 
   //making form disabled untill all requirments are done
   useEffect(() => {
@@ -76,26 +96,6 @@ function PostFile(props) {
   };
   // setting up the axios post and submit handeler
 
-  //dummy axios url
-  const url = "https://comakedatabase.herokuapp.com/api/posts";
-
-  //Making a function that goes to the axios and sets the wanted data to Comment
-  const getPost = () => {
-    axiosWithAuth()
-      .get(url)
-      .then((res) => {
-        console.log(res.data);
-        setPost(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  // console.log(post);
-  //making that funciton only run once when the page is updated
-  useEffect(() => {
-    getPost();
-  }, []);
   // Adding a comment to the url and setting your array of comments to that
   //url PLUS adding the new data its getting
   const postingPost = (event) => {

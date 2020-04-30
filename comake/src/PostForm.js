@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PostCard from "./PostCard";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -68,6 +68,29 @@ const InputZip = styled.input`
 `;
 
 function PostForm({ values, inputChange, Submiting, errors, post, disabled }) {
+  const posts = JSON.parse(localStorage.getItem("post"));
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const [result, setResult] = useState([...posts]);
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+
+    setResult(
+      post.filter((item) => {
+        return item.post_zip.includes(searchTerm);
+      })
+    );
+  };
+
+  // console.log(post);
+  // useEffect(() => {
+
+  // }, [searchTerm]);
+
+  console.log(result);
+
   return (
     <Form onSubmit={Submiting}>
       <label>
@@ -125,19 +148,26 @@ function PostForm({ values, inputChange, Submiting, errors, post, disabled }) {
           Submit Comment{" "}
         </Button>
       </label>
+      <input
+        type="text"
+        placeholder="Search"
+        value={searchTerm}
+        onChange={handleChange}
+      />
+
       <div>
-        {" "}
-        {post.map((item) => {
-          return (
-            <PostCard
-              id={item.post_id}
-              title={item.post_title}
-              zip={item.post_zip}
-              category={item.post_category}
-              text={item.post_text}
-            />
-          );
-        })}
+        {result &&
+          result.map((item) => {
+            return (
+              <PostCard
+                id={item.post_id}
+                title={item.post_title}
+                zip={item.post_zip}
+                category={item.post_category}
+                text={item.post_text}
+              />
+            );
+          })}
       </div>
     </Form>
   );
