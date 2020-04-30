@@ -7,7 +7,6 @@ import { axiosWithAuth } from "./utils/axiosWithAuth";
 import { connect } from "react-redux";
 // import {editAction} from "./actions/EditAction";
 
-
 const initialForm = {
   post_title: "",
   post_text: "",
@@ -34,7 +33,6 @@ const formSchema = yup.object().shape({
 });
 
 function PostFile(props) {
-  console.log(props.banana)
   //setting state for form
   const [form, setForm] = useState(initialForm);
   //for comments that will be added
@@ -43,6 +41,26 @@ function PostFile(props) {
   const [errors, setErrors] = useState(initialErrorForm);
   //for state of button
   const [formDisabled, setFormDisabled] = useState(true);
+  //dummy axios url
+  const url = "https://comakedatabase.herokuapp.com/api/posts";
+
+  //Making a function that goes to the axios and sets the wanted data to Comment
+  const getPost = () => {
+    axiosWithAuth()
+      .get(url)
+      .then((res) => {
+        localStorage.setItem("post", JSON.stringify(res.data));
+        setPost(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  // console.log(post);
+  //making that funciton only run once when the page is updated
+  useEffect(() => {
+    getPost();
+  }, []);
 
   //making form disabled untill all requirments are done
   useEffect(() => {
@@ -99,6 +117,7 @@ function PostFile(props) {
   useEffect(() => {
     getPost();
   }, []);
+
   // Adding a comment to the url and setting your array of comments to that
   //url PLUS adding the new data its getting
   const postingPost = (event) => {
@@ -118,7 +137,7 @@ function PostFile(props) {
     event.preventDefault();
 
     const newPost = {
-      user_id: "L76pkeUau",
+      user_id: props.user_id,
       title: form.post_title,
       text: form.post_text,
       zip: form.post_zip,
@@ -129,6 +148,16 @@ function PostFile(props) {
     //making it blank again
     setForm(initialForm);
   };
+
+  function add(id) {
+    const vote = { vote: 1 };
+    axiosWithAuth()
+      .put(`https://comakedatabase.herokuapp.com/api/posts/${id}/vote`, vote)
+      .then((res) => {
+        props.history.go(0);
+      });
+  }
+  console.log(props);
   return (
     <PostForm
       inputChange={Changing}
@@ -137,14 +166,15 @@ function PostFile(props) {
       post={post}
       errors={errors}
       disabled={formDisabled}
+      add={add}
     />
   );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-      banana: state.id
-  }
-}
+    user_id: state.id,
+  };
+};
 
-export default connect(mapStateToProps, {})(PostFile)
+export default connect(mapStateToProps, {})(PostFile);

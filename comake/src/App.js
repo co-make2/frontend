@@ -15,10 +15,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* <PostFile /> */}
-        <Switch>
-          {/* <Route path="/" component={Login} /> */}
-        </Switch>
+        <Switch>{/* <Route path="/" component={Login} /> */}</Switch>
 
         <header>
           <nav>

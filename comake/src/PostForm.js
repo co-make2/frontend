@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PostCard from "./PostCard";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -68,7 +68,38 @@ const InputZip = styled.input`
   margin: 0 auto;
 `;
 
-function PostForm({ values, inputChange, Submiting, errors, post, disabled }) {
+function PostForm({
+  values,
+  inputChange,
+  Submiting,
+  errors,
+  post,
+  disabled,
+  add,
+}) {
+  const posts = JSON.parse(localStorage.getItem("post"));
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const [result, setResult] = useState([...posts]);
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+
+    setResult(
+      post.filter((item) => {
+        return item.post_zip.includes(searchTerm);
+      })
+    );
+  };
+
+  // console.log(post);
+  // useEffect(() => {
+
+  // }, [searchTerm]);
+
+  console.log(result);
+
   return (
     <Form onSubmit={Submiting}>
       <label>
@@ -79,10 +110,13 @@ function PostForm({ values, inputChange, Submiting, errors, post, disabled }) {
           value={values.post_category}
         >
           <Option> Select Category </Option>
-          <Option value="1"> dummyData1 </Option>
-          <Option value="2"> dummyData2 </Option>
-          <Option value="3"> dummyData3 </Option>
-          <Option value="4"> dummyData4 </Option>
+          <Option value="1"> Maintenance </Option>
+          <Option value="2"> Saftey </Option>
+          <Option value="3"> Complaints </Option>
+          <Option value="4"> Suggestions </Option>
+          <Option value="5"> Budget </Option>
+          <Option value="6"> Beautification </Option>
+          <Option value="7"> Lost / Missing </Option>
         </Select>
         <p> {errors.category} </p>
       </label>
@@ -126,7 +160,29 @@ function PostForm({ values, inputChange, Submiting, errors, post, disabled }) {
           Submit Comment{" "}
         </Button>
       </label>
+      <br />
+      <input
+        type="text"
+        placeholder="Search zip codes"
+        value={searchTerm}
+        onChange={handleChange}
+      />
+
       <div>
+        {result &&
+          result.map((item) => {
+            return (
+              <PostCard
+                id={item.post_id}
+                title={item.post_title}
+                zip={item.post_zip}
+                category={item.post_category}
+                text={item.post_text}
+                upvotes={item.post_upvotes}
+                add={add}
+              />
+            );
+          })}
         {" "}
         {post.map((item) => {
           return (
