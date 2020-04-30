@@ -44,6 +44,7 @@ const Register = props => {
                 event.preventDefault();
                 props.userRegister(credentials)
                 props.history.push("/posts")
+                props.history.go(0)
             }}>
                 <input
                     type="username"

@@ -6,8 +6,8 @@ import {userLogin} from "../actions/LoginAction";
 const Login = (props) => {
     // console.log(userLogin)
     const [credentials, setCredentials] = useState({
-        username: '',
-        password: ''
+        username: props.username,
+        password: props.password
     })
 
     const inputHandler = (event) => {
@@ -39,6 +39,7 @@ const Login = (props) => {
                     password: ''
                 })
                 props.history.push("/posts")
+                props.history.go(0)
             }}>
             
                 <input 
@@ -61,4 +62,11 @@ const Login = (props) => {
     )
 }
 
-export default connect(null, {userLogin})(Login)
+const mapStateToProps = state => {
+    return {
+        username: state.username,
+        password: state.password
+    }
+}
+
+export default connect(mapStateToProps, {userLogin})(Login)
