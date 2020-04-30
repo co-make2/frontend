@@ -172,6 +172,8 @@ function PostForm({
         {result &&
           result.map((item) => {
             return (
+              <>
+              <Link to={`/posts/${item.post_id}`}> Edit </Link>
               <PostCard
                 id={item.post_id}
                 title={item.post_title}
@@ -181,19 +183,18 @@ function PostForm({
                 upvotes={item.post_upvotes}
                 add={add}
               />
+              </>
             );
           })}
         {" "}
         {post.map((item) => {
           return (
-            <Link to={`/posts/${item.post_id}`}>
             <PostCard
               title={item.post_title}
               zip={item.post_zip}
               category={item.post_category}
               text={item.post_text}
             />
-            </Link>
           );
         })}
       </div>

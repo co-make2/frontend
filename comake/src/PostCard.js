@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
 import { connect } from "react-redux";
-import {editAction} from "./actions/EditAction"
 
 
 const Wrapper = styled.div`
@@ -77,5 +76,4 @@ export default function PostCard(props) {
 //set those values to state
 //
 
-export default connect(null, {editAction})(PostCard)
 
