@@ -1,11 +1,56 @@
 import React, { useState, useEffect } from "react";
-import PostCard from "./PostCard";
+import { useParams, useHistory } from "react-router-dom";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
-const Option = styled.option`
+ export const Edit = props => {
+    const [post, setPost] = useState({
+        post_id: '',
+        post_category: '',
+        post_title: '',
+        post_text: '',
+        post_zip: '',
+    })
+    const [newPost, setNewPost] = useState({
+      category_id: '',
+      title: '',
+      text: '',
+      zip: '',
+  })
+    const params = useParams();
+    const { id } = useParams();
+
+    useEffect(() => {
+        axiosWithAuth().get(`https://comakedatabase.herokuapp.com/api/posts/${id}`)
+        .then(response => {
+            console.log(response.data)
+            setPost(response.data)
+        })
+    }, [])
+
+    const inputChange = (event) => {
+      // event.preventDefault();
+      console.log("Current Post:", post)
+        setPost({
+            ...post,
+            [event.target.name]: event.target.value
+            
+        })
+    }
+
+    const newInputChange = (event) => {
+      // event.preventDefault();
+      console.log("New Post:", newPost)
+        setNewPost({
+            ...newPost,
+            [event.target.name]: event.target.value
+            
+        })
+    }
+
+    const Option = styled.option`
   color: blue;
   background-color: rgb(232, 240, 254);
   border-color: lightblue;
@@ -68,78 +113,66 @@ const InputZip = styled.input`
   margin: 0 auto;
 `;
 
-function PostForm({
-  values,
-  inputChange,
-  Submiting,
-  errors,
-  post,
-  disabled,
-  add,
-}) {
-  const posts = JSON.parse(localStorage.getItem("post"));
+const updateForm = (post) => {
 
-  const [searchTerm, setSearchTerm] = useState("");
+  const newObj = {
+      category_id: post.post_category,
+      title: post.post_title,
+      text: post.post_title,
+      zip: post.post_zip,
+  }
+  axiosWithAuth().put(`https://comakedatabase.herokuapp.com/api/posts/${id}`, newObj)
+  .then(response => {
+    console.log(response)
+  })
+}
 
-  const [result, setResult] = useState([...posts]);
+const deletePost = () => {
+  axiosWithAuth().delete(`https://comakedatabase.herokuapp.com/api/posts/${id}`)
+  .then(response => {
+    props.history.push("/posts");
+  })
+  
+}
 
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-
-    setResult(
-      post.filter((item) => {
-        return item.post_zip.includes(searchTerm);
-      })
-    );
-  };
-
-  // console.log(post);
-  // useEffect(() => {
-
-  // }, [searchTerm]);
-
-  console.log(result);
-
-  return (
-    <Form onSubmit={Submiting}>
+    return (
+        <Form>
       <label>
         <Form.Label>Category: </Form.Label>
         <Select
           name="post_category"
+          id="post_category"
           onChange={inputChange}
-          value={values.post_category}
+          value={post.post_category}
         >
           <Option> Select Category </Option>
-          <Option value="1"> Maintenance </Option>
-          <Option value="2"> Saftey </Option>
-          <Option value="3"> Complaints </Option>
-          <Option value="4"> Suggestions </Option>
-          <Option value="5"> Budget </Option>
-          <Option value="6"> Beautification </Option>
-          <Option value="7"> Lost / Missing </Option>
+          <Option value="1"> dummyData1 </Option>
+          <Option value="2"> dummyData2 </Option>
+          <Option value="3"> dummyData3 </Option>
+          <Option value="4"> dummyData4 </Option>
         </Select>
-        <p> {errors.category} </p>
       </label>
       <Form.Group>
         <Form.Label>Title</Form.Label>
-        <InputTitle
+        <input
           name="post_title"
+          id="post_title"
           type="text"
           placeholder="Insert Title here!"
           onChange={inputChange}
-          value={values.post_title}
+          value={post.post_title}
         />
-        <p> {errors.post_title} </p>
+        <p> {post.post_title} </p>
       </Form.Group>
       <Form.Group>
         <Form.Label>Concern</Form.Label>
-        <InputTextArea
+        <textarea
           name="post_text"
           placeholder="Enter your concern here!"
           onChange={inputChange}
-          value={values.post_text}
+          value={post.post_text}
         />
-        <p> {errors.post_text} </p>
+        
       </Form.Group>
 
       <Form.Group>
@@ -149,56 +182,24 @@ function PostForm({
           type="text"
           placeholder="Zip Code"
           onChange={inputChange}
-          value={values.post_zip}
+          value={post.post_zip}
         />
-        <p> {errors.post_zip} </p>
+        
       </Form.Group>
 
       <label>
-        <Button type="submit" disabled={disabled}>
+        <Button onClick={(event) => {
+          event.preventDefault();
+          updateForm(post)}}>
           {" "}
-          Submit Comment{" "}
+          Submit Update{" "}
+        </Button>
+        <Button onClick={deletePost}>
+          Delete Post
         </Button>
       </label>
-      <br />
-      <input
-        type="text"
-        placeholder="Search zip codes"
-        value={searchTerm}
-        onChange={handleChange}
-      />
+      </Form>
 
-      <div>
-        {result &&
-          result.map((item) => {
-            return (
-              <PostCard
-                id={item.post_id}
-                title={item.post_title}
-                zip={item.post_zip}
-                category={item.post_category}
-                text={item.post_text}
-                upvotes={item.post_upvotes}
-                add={add}
-              />
-            );
-          })}
-        {" "}
-        {post.map((item) => {
-          return (
-            <Link to={`/posts/${item.post_id}`}>
-            <PostCard
-              title={item.post_title}
-              zip={item.post_zip}
-              category={item.post_category}
-              text={item.post_text}
-            />
-            </Link>
-          );
-        })}
-      </div>
-    </Form>
-  );
+    )
+
 }
-
-export default PostForm;

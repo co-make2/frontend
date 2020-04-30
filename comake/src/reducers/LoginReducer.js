@@ -16,15 +16,16 @@ export const LoginReducer = (state = initialState, action) => {
                 isPosting: true
             }
         case "USER_LOGIN_SUCCESS":
-            console.log(action.payload.id)
+            console.log(action.payload)
             return {
                 ...state,
                 isPosting: false,
-                id: action.payload.id,
-                username: action.payload.username,
-                email: action.payload.email,
-                password: action.payload.password,
-                zip: action.payload.zip
+                // id: action.payload.id,
+                // username: action.payload.username,
+                // email: action.payload.email,
+                // password: action.payload.password,
+                // zip: action.payload.zip
+                ...action.payload
             }
         case "USER_REGISTER_START":
             return {

@@ -9,6 +9,7 @@ import Login from "./components/LoginPage";
 import Register from "./components/RegisterPage";
 import { Posts } from "./components/PostsPage";
 import PrivateRoute from "./components/PrivateRoute";
+import { Edit } from "./components/EditPost";
 
 function App() {
   return (
@@ -25,8 +26,9 @@ function App() {
         </header>
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
-
+        <Route path="/posts/:id" component={Edit}/>
         <PrivateRoute exact path="/posts" component={PostFile} />
+        <PrivateRoute exact path="/edit_posts" component={Edit} />
       </div>
     </Router>
   );
