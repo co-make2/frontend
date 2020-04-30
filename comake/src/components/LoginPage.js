@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { connect } from "react-redux";
 import {userLogin} from "../actions/LoginAction";
+import Form from "react-bootstrap/Form";
 
 const Login = (props) => {
     // console.log(userLogin)
@@ -31,25 +32,25 @@ const Login = (props) => {
         <div>
             <h1>Welcome to Comake</h1>
             <h3>Please sign in below, and start reaching out!</h3>
-            <form onSubmit={(event) => {
+            <Form onSubmit={(event) => {
                 event.preventDefault()
                 props.userLogin(credentials)
                 setCredentials({
                     username: '',
                     password: ''
                 })
-                props.history.push("/posts")
-                props.history.go(0)
+                // props.history.push("/posts")
+                // props.history.go(0)
             }}>
             
-                <input 
+                <Form.Control 
                     type="text"
                     placeholder="Username:"
                     name="username"
                     value={credentials.username}
                     onChange={inputHandler}
                 /><br/>
-                <input 
+                <Form.Control
                     type="password"
                     placeholder="Password:"
                     name="password"
@@ -57,7 +58,7 @@ const Login = (props) => {
                     onChange={inputHandler}
                 /><br/>
                 <input type="submit" />
-            </form>
+            </Form>
         </div>
     )
 }
