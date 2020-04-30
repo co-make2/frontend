@@ -26,10 +26,6 @@ export default function PostCard(props) {
   const [upVote, setupVote] = useState(props.upvotes);
 
 
-
-
- function PostCard(props) {
-
   return (
     <div>
       <Wrapper>
@@ -49,7 +45,7 @@ export default function PostCard(props) {
     </div>
   );
 }
-}
+
 
 {
   /* <div>
