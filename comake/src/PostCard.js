@@ -49,6 +49,7 @@ export default function PostCard(props) {
     </div>
   );
 }
+}
 
 {
   /* <div>
