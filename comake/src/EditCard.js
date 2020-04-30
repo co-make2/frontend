@@ -1,18 +1,17 @@
-import React, { useState, useEffect, useParams } from "react";
+import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
+import { useParams } from "react-router-dom";
+import PostForm from "./PostForm";
 
-export default function EditCard() {
+const EditCard = (props) => {
   const [post, setPost] = useState();
-  const id = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
-    // change ^^^ that line and grab the id from the URL
-    // You will NEED to add a dependency array to this effect hook
-
     axiosWithAuth()
       .get(`https://comakedatabase.herokuapp.com/api/posts/${id}`)
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
         setPost(response.data);
       })
       .catch((error) => {
@@ -20,5 +19,7 @@ export default function EditCard() {
       });
   }, []);
 
-  return null;
-}
+  return <PostForm />;
+};
+
+export default EditCard;
